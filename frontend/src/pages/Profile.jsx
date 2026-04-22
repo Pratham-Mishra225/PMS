@@ -1,5 +1,6 @@
 import { useAuth } from '../AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { FiLogOut, FiShield, FiUser } from 'react-icons/fi';
 
 const Profile = () => {
     const { user, logout } = useAuth();
@@ -11,41 +12,41 @@ const Profile = () => {
     };
 
     return (
-        <div className="container mt-5">
-            <div className="row justify-content-center">
-                <div className="col-md-4">
-                    <div className="card">
-                        <div className="card-header bg-primary text-white">
-                            <h4 className="mb-0">Profile</h4>
+        <div className="page-section">
+            <div className="profile-shell">
+                <div className="app-card">
+                    <div className="p-4 p-md-5 text-center">
+                        <div className="profile-avatar mb-3">
+                            {user?.username?.charAt(0).toUpperCase()}
                         </div>
-                        <div className="card-body text-center">
-                            <div className="mb-4">
-                                <div className="bg-secondary rounded-circle d-inline-flex align-items-center justify-content-center"
-                                     style={{ width: '80px', height: '80px' }}>
-                                    <span className="text-white fs-1">
-                                        {user?.username?.charAt(0).toUpperCase()}
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="mb-3">
-                                <label className="form-label text-muted">Username</label>
-                                <h5>{user?.username}</h5>
-                            </div>
-                            <div className="mb-4">
-                                <label className="form-label text-muted">Role</label>
-                                <h5>
-                                    <span className={`badge ${user?.role === 'ADMIN' ? 'bg-danger' : 'bg-primary'}`}>
-                                        {user?.role}
-                                    </span>
-                                </h5>
-                            </div>
-                            <button
-                                className="btn btn-danger w-100"
-                                onClick={handleLogout}
-                            >
-                                Logout
-                            </button>
+                        <h2 className="mb-1">Your Profile</h2>
+                        <p className="text-muted mb-4">Manage account details and session access.</p>
+
+                        <div className="mb-3">
+                            <p className="profile-meta-label">
+                                <FiUser className="me-2" aria-hidden="true" /> Username
+                            </p>
+                            <p className="profile-meta-value">{user?.username}</p>
                         </div>
+
+                        <div className="mb-4">
+                            <p className="profile-meta-label">
+                                <FiShield className="me-2" aria-hidden="true" /> Role
+                            </p>
+                            <p className="profile-meta-value">
+                                <span className={`role-pill ${user?.role === 'ADMIN' ? 'role-pill-admin' : 'role-pill-pharmacist'}`}>
+                                    {user?.role}
+                                </span>
+                            </p>
+                        </div>
+
+                        <button
+                            className="btn btn-soft-danger w-100"
+                            onClick={handleLogout}
+                        >
+                            <FiLogOut className="me-2" aria-hidden="true" />
+                            Logout
+                        </button>
                     </div>
                 </div>
             </div>

@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
     const checkAuth = async () => {
         try {
             const response = await getCurrentUser();
-            if (response.status === 200) {
+            if (response.status === 200 && response.data?.username) {
                 setUser(response.data);
             } else {
                 setUser(null);

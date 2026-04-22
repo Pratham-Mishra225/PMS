@@ -1,50 +1,61 @@
+import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { FiGrid, FiPackage, FiShoppingCart, FiUser } from 'react-icons/fi';
 import { useAuth } from '../AuthContext';
 
 const Navbar = () => {
     const { user } = useAuth();
     const location = useLocation();
+    const [isOpen, setIsOpen] = useState(false);
+
+    useEffect(() => {
+        setIsOpen(false);
+    }, [location.pathname]);
 
     if (!user) return null;
 
-    const isActive = (path) => location.pathname === path ? 'active' : '';
+    const isActive = (path) => location.pathname === path;
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div className="container-fluid">
-                <Link className="navbar-brand" to="/inventory">
-                    <span className="me-2">💊</span>
+        <nav className="app-navbar">
+            <div className="container-fluid app-navbar-inner">
+                <Link className="app-brand" to="/inventory">
+                    <span className="app-brand-icon" aria-hidden="true">
+                        <FiGrid />
+                    </span>
                     Pharmacy MS
                 </Link>
                 <button
-                    className="navbar-toggler"
+                    className="app-nav-toggle"
                     type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav"
+                    aria-label="Toggle navigation"
+                    aria-expanded={isOpen}
+                    onClick={() => setIsOpen((prev) => !prev)}
                 >
-                    <span className="navbar-toggler-icon"></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </button>
-                <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav me-auto">
-                        <li className="nav-item">
-                            <Link className={`nav-link ${isActive('/inventory')}`} to="/inventory">
+                <div className={`app-nav-content ${isOpen ? 'open' : ''}`}>
+                    <ul className="app-nav-links">
+                        <li>
+                            <Link className={`app-nav-link ${isActive('/inventory') ? 'active' : ''}`} to="/inventory">
+                                <FiPackage aria-hidden="true" />
                                 Inventory
                             </Link>
                         </li>
-                        <li className="nav-item">
-                            <Link className={`nav-link ${isActive('/pos')}`} to="/pos">
+                        <li>
+                            <Link className={`app-nav-link ${isActive('/pos') ? 'active' : ''}`} to="/pos">
+                                <FiShoppingCart aria-hidden="true" />
                                 Point of Sale
                             </Link>
                         </li>
                     </ul>
-                    <ul className="navbar-nav">
-                        <li className="nav-item">
-                            <Link className={`nav-link ${isActive('/profile')}`} to="/profile">
-                                <span className="me-1">👤</span>
-                                {user.username} ({user.role})
-                            </Link>
-                        </li>
-                    </ul>
+                    <Link className={`app-user-link ${isActive('/profile') ? 'active' : ''}`} to="/profile">
+                        <FiUser aria-hidden="true" />
+                        <span className="app-user-name">{user.username}</span>
+                        <span className="app-user-role">{user.role}</span>
+                    </Link>
                 </div>
             </div>
         </nav>

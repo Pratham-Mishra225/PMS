@@ -11,8 +11,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function Layout() {
   return (
     <AuthProvider>
-      <Navbar />
-      <Outlet />
+      <div className="app-shell">
+        <Navbar />
+        <main className="app-main">
+          <Outlet />
+        </main>
+      </div>
     </AuthProvider>
   );
 }

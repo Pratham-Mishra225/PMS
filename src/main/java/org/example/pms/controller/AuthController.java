@@ -74,7 +74,7 @@ public class AuthController {
 
         if (authentication == null || !authentication.isAuthenticated() ||
             "anonymousUser".equals(authentication.getPrincipal())) {
-            return ResponseEntity.status(401).build();
+            return ResponseEntity.ok().build();
         }
 
         String username = authentication.getName();

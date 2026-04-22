@@ -67,7 +67,7 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
             )
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/auth/login", "/api/auth/logout", "/api/auth/csrf").permitAll()
+                .requestMatchers("/api/auth/login", "/api/auth/logout", "/api/auth/csrf", "/api/auth/me").permitAll()
                 // Only ADMIN can delete medicines
                 .requestMatchers(HttpMethod.DELETE, "/api/medicines/**").hasRole("ADMIN")
                 // Both ADMIN and PHARMACIST can add/update medicines

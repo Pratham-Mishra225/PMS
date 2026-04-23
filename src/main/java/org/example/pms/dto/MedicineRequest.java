@@ -23,6 +23,5 @@ public class MedicineRequest {
     @DecimalMin(value = "0.0", inclusive = true)
     private BigDecimal price;
     @NotNull
-    @Future
     private LocalDate expiryDate;
 }
